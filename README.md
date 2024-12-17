@@ -300,9 +300,18 @@ After Promise
 ```
 
 What is the role of await, and how does it affect the execution flow?
-An async function always returns a Promise.
-When the function is called, it executes synchronously up until the first await.
-await pauses execution until the Promise is resolved, allowing other synchronous code to execute.
+
+Key Concepts:
+async Functions and await:
+
+An async function always returns a promise.
+The await keyword pauses the execution of the function until the awaited promise resolves, but it does not block the event loop.
+The rest of the function after await is executed as a microtask, which runs after the current synchronous code completes.
+JavaScript Execution Model:
+
+JavaScript has a call stack, a microtask queue, and a macrotask queue.
+Synchronous code is executed first (on the call stack).
+Microtasks (e.g., resolved promises, await) are executed next, before any macrotasks (e.g., setTimeout callbacks).
 10. Default Parameters
 ```
 function multiply(a, b = 2) {  
