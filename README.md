@@ -128,7 +128,15 @@ Promise.resolve().then(() => console.log("Promise"));
 console.log("End");
 ```
 Output?
+```
+Start
+End
+Promise
+Timeout
+```
 Explain the execution order of the statements.
+console.log() is a synchronous operation so it executes first and promises will resolve then promise stmt willl be executed and at last asynchronous operation will be executed which is timeout.Asynchronous tasks (setTimeout, Promise.then) are deferred and handled later via the event loop.The event loop ensures all synchronous code runs first.
+Afterward, it processes microtasks (Promises) before handling the callback queue (e.g., setTimeout).Microtasks (like Promises) are given higher priority than tasks in the callback queue (like setTimeout)
 
 5. Function Overwriting
 ```
@@ -157,8 +165,11 @@ getName();
 obj.getName();
 ```
 Output?
+undefined
+Alice
 Explain the behavior of this in both calls.
-
+-When a function is called on its own (e.g., getName()), this defaults to:undefined in strict mode.The global object (window in browsers or global in Node.js) in non-strict mode.At this point, getName is just a standalone function. It loses its association with obj
+- Here, getName is called as a method of obj.this refers to obj.this.name evaluates to "Alice", and "Alice" is logged.
 7. Prototype
 ```
 function Person(name) {  
@@ -173,8 +184,11 @@ delete person1.greet;
 person1.greet();
 ```
 Output?
+Hello, Alice!
+Hello, Alice!
 How does JavaScript prototype inheritance work?
-
+- function Person(name) is a constructor function that initializes an object with a name property.Person.prototype.greet adds a greet method to the Person prototype. This means all instances of Person can access this method via prototype inheritance.
+- delete person1.greet tries to remove the greet method from the person1 object. However:greet does not exist directly on person1; it exists on the prototype(Person.prototype).Therefore, the delete operation does nothing effective.
 8. Array and Object References
 ```
 let arr = [1, 2, 3];  
@@ -187,8 +201,12 @@ newObj.b = 2;
 console.log(obj);
 ```
 Output?
-Explain the difference between primitive and reference types.
+[1, 2, 3, 4]
+{ a: 1, b: 2 }
 
+Explain the difference between primitive and reference types.
+Arrays and objects are reference types in JavaScript.
+When you assign one array or object to another variable (e.g., newArr = arr or newObj = obj), both variables point to the same reference in memory. Changes made to one will affect the other.
 9. Asynchronous Behavior
 ```
 async function asyncFunc() {  
@@ -200,8 +218,14 @@ asyncFunc();
 console.log("End");
 ```
 Output?
-What is the role of await, and how does it affect the execution flow?
+Start
+End
+After Promise
 
+What is the role of await, and how does it affect the execution flow?
+An async function always returns a Promise.
+When the function is called, it executes synchronously up until the first await.
+await pauses execution until the Promise is resolved, allowing other synchronous code to execute.
 10. Default Parameters
 ```
 function multiply(a, b = 2) {  
@@ -212,26 +236,50 @@ console.log(multiply(5, null));
 console.log(multiply(5, undefined));
 ```
 Output?
+10
+0
+10
 How do default parameters work in JavaScript?
-
+- Here, only one argument (5) is passed for a.b is not provided, so it takes its default value: b = 2.it gives 10
+- Here, 5 is passed for a and null is explicitly passed for b.Default parameters are only applied when the value is undefined.Since b = null, the default value is not applied.
+Calculation: 5 * null → null is coerced to 0.Final result: 5 * 0 = 0.
+- Here, 5 is passed for a and undefined is explicitly passed for b.so b takes default value 2 so it gives 10.
 11. Object Destructuring
 ```
 const { a, b = 2 } = { a: 1, b: undefined };  
 console.log(a, b);
 ```
 Output?
-What happens when the property is undefined vs. missing in destructuring?
+1 2
 
+What happens when the property is undefined vs. missing in destructuring?
+a is assigned the value of the property a in the object: a = 1.b is assigned the value of the property b in the object. However, b is explicitly set to undefined in the object.
+In destructuring, if a property is undefined and a default value is specified, the default value is used.Since b is undefined, the default value (b = 2) is applied.
 12. Type Coercion
 ```
 console.log("5" - 2);  
 console.log("5" + 2);  
-console.log(null == 0);  
-console.log(null > 0);
+console.log(null == 0); false 
+console.log(null > 0);false
+console.log(null ==undefined);true
+console.log(null ===undefined);false
 ```
 Output?
-Explain the rules of type coercion in these cases.
+3
+52
+false
+false
+true
+false
 
+Explain the rules of type coercion in these cases.
+- In this case, we are performing a subtraction operation.The - operator in JavaScript tries to convert both operands to numbers before performing the operation.he string "5" iscoerced to a number: Number("5") → 5.
+- Here, we are performing an addition operation.In the case of the + operator, if one of the operands is a string, JavaScript performs string concatenation instead of arithmetic addition.
+- null == 0 → evaluates to false because null only loosely equates to 0 in specific scenarios (e.g., null == undefined).
+- In this case, JavaScript tries to convert null to a number.The expression null > 0 becomes 0 > 0, which is false.
+- In JavaScript, null and undefined are loosely equal according to the loose equality comparison rules.When using the == operator, JavaScript treats null and undefined as equal because they are both special values representing the absence of a value.
+- Since null and undefined are different types (null is an object, while undefined is a primitive type), null === undefined evaluates to false.
+  
 13. Callback Hell
 ```
 setTimeout(() => {  
@@ -245,6 +293,11 @@ setTimeout(() => {
 }, 100);
 ```
 Output?
+```
+1
+2
+3
+```
 What challenges does callback hell pose, and how can it be avoided?
 
 14. Rest/Spread Operator
@@ -257,16 +310,32 @@ const obj2 = { ...obj1, c: 3 };
 console.log(obj2);
 ```
 Output?
-What are the use cases of the spread operator?
+[1, 2, 3, 4]
+{ a: 1, b: 2, c: 3 }
 
+What are the use cases of the spread operator?
+The spread operator (...) expands the elements of an array into individual elements.he 4 is added after spreading the elements of arr1.
+The spread operator can also be used to copy properties from one object to another....obj1 expands the properties { a: 1, b: 2 }.The property c: 3 is added to the resulting object
 15. typeof and instanceof
 ```
 console.log(typeof null);  
 console.log(typeof []);  
 console.log([] instanceof Array);  
 console.log({} instanceof Object);
+console.log(typeof undefined); 
 ```
 Output?
+object
+object
+true
+true
+undefined
+
+
 What are the differences between typeof and instanceof?
+- type of null return object
+-The instanceof operator checks if an object is an instance of a specific constructor.Here, [] is an instance of Array, so the result is true.
+- Similarly, {} (an empty object) is an instance of Object.it return true
+- In JavaScript, undefined is a primitive value and represents the absence of a value or an uninitialized variable.The typeof operator returns "undefined" when used with undefined.
 
 
