@@ -375,85 +375,152 @@ false
 false
 
 ```
+```
 console.log("5" == 5);  
 console.log("5" === 5);  
 console.log(5 == "5.0");  
 console.log(5 === "5.0");
+```
 true
 false
 true
 false
-
+```
 console.log(NaN == NaN);  
 console.log(NaN === NaN);  
 console.log(undefined == NaN);  
 console.log(undefined === NaN);
+```
 false
 false
 false
 false
-
+```
 console.log(true == 1);  
 console.log(true === 1);  
 console.log(false == 0);  
 console.log(false === 0);
+```
 true
 false
 true
 false
-
+```
 console.log("" == false);  
 console.log("" === false);  
 console.log("" == 0);  
 console.log("" === 0);
+```
+output:
+true
+false
+true
+false
 - In loose equality, "" is coerced to a boolean value and compared with false.Since an empty string is falsy, "" == false evaluates to true
 - In strict equality, "" (a string) and false (a boolean) have different types.Therefore, "" === false evaluates to false
 - In loose equality, the empty string "" is coerced to 0 before comparison."" == 0 evaluates to true.
 - In strict equality, "" (a string) and 0 (a number) have different types.Therefore, "" === 0 evaluates to false.
+  
+ ```
 console.log([] == 0);  
 console.log([] === 0);  
 console.log([1] == 1);  
 console.log([1] === 1);
+```
+output:
+true
+falsw
+true
+false
 - In loose equality, the empty array [] is coerced to a string, which is then converted to 0.[] converts to "", and "" == 0 evaluates to true.
 - In strict equality, there is no type conversion.Since [] is an array and 0 is a number, their types are different.
 - In loose equality, [1] is converted to a string ("1"), and then compared with the number 1."1" is coerced to the number 1 for comparison, so [1] == 1 evaluates to true.
 - In strict equality, there is no type conversion.Since [1] is an array and 1 is a number, their types are different.
+ ```
 console.log(null == false);  
 console.log(undefined == false);  
 console.log(undefined == true);  
 console.log(null === false);
+```
+false
+false
+true
+false
+
 - In loose equality, null is only equal to false when specifically coerced in this comparison.In JavaScript, null is loosely equal to false.
 - In loose equality, undefined is not equal to false.
 - In loose equality, undefined is not equal to true.
 - In strict equality, no type conversion occurs.Since null (an object) and false (a boolean) have different types, strict equality evaluates to false.
+```
 console.log({} == "[object Object]");  
 console.log({} === "[object Object]");  
 console.log([1, 2] == "1,2");  
 console.log([1, 2] === "1,2");
-
+```
+```
 console.log(true == "true");  
 console.log(false == "false");  
 console.log(true == "1");  
 console.log(false == "");
+console.log("true" == true);  
+console.log("false" == false);  
+```
+output:
+false
+false
+true
+true
+false
+false
+-In loose equality, true is coerced to a string ("1").Then, it compares "1" == "true" which is not equal.
+-In loose equality, false is coerced to a string ("0").Comparing "0" with "false" results in false.
+-In loose equality, true is coerced to number 1.The comparison becomes 1 == "1" and is true.
+-In loose equality, false is coerced to the number 0."" (an empty string) is also coerced to 0.Since 0 == 0 evaluates to true, this comparison is true.
+- In loose comparison, JavaScript attempts to convert "true" to a primitive value."true" is a string and cannot directly compare with a boolean (true).
+In this comparison:"true" is first converted to a number. In JavaScript, non-numeric strings convert to NaN.NaN compared to 1 evaluates to false.
+- "false" is a string, and it tries to coerce to a number first.As with non-numeric strings, "false" becomes NaN.NaN is not equal to false or 0.
 
+```
 console.log(0 == "0");  
 console.log(0 == []);  
 console.log("0" == []);  
 console.log([] == ![]);
-
+```
+true
+true
+true
+true
+- The string "0" is coerced to a number (0).Therefore, 0 == "0" becomes 0 == 0, which evaluates to true
+- An empty array [] is coerced to a number and becomes 0.So, 0 == [] evaluates to 0 == 0, which is true.
+- The empty array [] is converted to a primitive value, which is 0.The comparison "0" == 0 is then 0 == 0, which evaluates to true.
+- In JavaScript, ![] evaluates to false.Now the comparison becomes [] == false.
+In loose equality:
+The empty array [] is converted to a primitive value, which is 0.Therefore, [] == false translates to 0 == 0, which is true.
+```
 console.log({} == "[object Object]");  
 console.log({} == {});  
 console.log({}.toString() == "[object Object]");  
 console.log({}.toString() === "[object Object]");
-
+```
+```
 console.log(null == undefined);  
 console.log(null === undefined);  
 console.log(null == 0);  
 console.log(undefined == 0);
-
+```
+true
+false
+true
+false
+- In loose equality, null and undefined are considered equal.Therefore, this comparison evaluates to true.
+- In strict equality, null and undefined have different types.Since their types are different, this comparison evaluates to false.
+- In loose equality, null is coerced to 0.Therefore, the comparison null == 0 evaluates to true.
+- In loose equality, undefined and 0 are not considered equal.undefined is only loosely equal to NaN, not numbers.
+```
 const obj = { valueOf: () => 5 };  
 console.log(obj == 5);  
 console.log(obj === 5);  
 console.log(obj == "5");  
 console.log(obj === "5");
+```
 
