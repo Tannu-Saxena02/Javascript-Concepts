@@ -165,8 +165,10 @@ getName();
 obj.getName();
 ```
 Output?
+```
 undefined
 Alice
+```
 Explain the behavior of this in both calls.
 -When a function is called on its own (e.g., getName()), this defaults to:undefined in strict mode.The global object (window in browsers or global in Node.js) in non-strict mode.At this point, getName is just a standalone function. It loses its association with obj
 - Here, getName is called as a method of obj.this refers to obj.this.name evaluates to "Alice", and "Alice" is logged.
@@ -184,8 +186,10 @@ delete person1.greet;
 person1.greet();
 ```
 Output?
+```
 Hello, Alice!
 Hello, Alice!
+```
 How does JavaScript prototype inheritance work?
 - function Person(name) is a constructor function that initializes an object with a name property.Person.prototype.greet adds a greet method to the Person prototype. This means all instances of Person can access this method via prototype inheritance.
 - delete person1.greet tries to remove the greet method from the person1 object. However:greet does not exist directly on person1; it exists on the prototype(Person.prototype).Therefore, the delete operation does nothing effective.
@@ -201,8 +205,10 @@ newObj.b = 2;
 console.log(obj);
 ```
 Output?
+```
 [1, 2, 3, 4]
 { a: 1, b: 2 }
+```
 
 Explain the difference between primitive and reference types.
 Arrays and objects are reference types in JavaScript.
@@ -218,9 +224,11 @@ asyncFunc();
 console.log("End");
 ```
 Output?
+```
 Start
 End
 After Promise
+```
 
 What is the role of await, and how does it affect the execution flow?
 An async function always returns a Promise.
@@ -236,9 +244,11 @@ console.log(multiply(5, null));
 console.log(multiply(5, undefined));
 ```
 Output?
+```
 10
 0
 10
+```
 How do default parameters work in JavaScript?
 - Here, only one argument (5) is passed for a.b is not provided, so it takes its default value: b = 2.it gives 10
 - Here, 5 is passed for a and null is explicitly passed for b.Default parameters are only applied when the value is undefined.Since b = null, the default value is not applied.
@@ -250,7 +260,9 @@ const { a, b = 2 } = { a: 1, b: undefined };
 console.log(a, b);
 ```
 Output?
+```
 1 2
+```
 
 What happens when the property is undefined vs. missing in destructuring?
 a is assigned the value of the property a in the object: a = 1.b is assigned the value of the property b in the object. However, b is explicitly set to undefined in the object.
@@ -265,12 +277,14 @@ console.log(null ==undefined);true
 console.log(null ===undefined);false
 ```
 Output?
+```
 3
 52
 false
 false
 true
 false
+```
 
 Explain the rules of type coercion in these cases.
 - In this case, we are performing a subtraction operation.The - operator in JavaScript tries to convert both operands to numbers before performing the operation.he string "5" iscoerced to a number: Number("5") → 5.
@@ -310,9 +324,10 @@ const obj2 = { ...obj1, c: 3 };
 console.log(obj2);
 ```
 Output?
+```
 [1, 2, 3, 4]
 { a: 1, b: 2, c: 3 }
-
+```
 What are the use cases of the spread operator?
 The spread operator (...) expands the elements of an array into individual elements.he 4 is added after spreading the elements of arr1.
 The spread operator can also be used to copy properties from one object to another....obj1 expands the properties { a: 1, b: 2 }.The property c: 3 is added to the resulting object
@@ -325,11 +340,13 @@ console.log({} instanceof Object);
 console.log(typeof undefined); 
 ```
 Output?
+```
 object
 object
 true
 true
 undefined
+```
 
 
 What are the differences between typeof and instanceof?
@@ -381,30 +398,36 @@ console.log("5" === 5);
 console.log(5 == "5.0");  
 console.log(5 === "5.0");
 ```
+```
 true
 false
 true
 false
+```
 ```
 console.log(NaN == NaN);  
 console.log(NaN === NaN);  
 console.log(undefined == NaN);  
 console.log(undefined === NaN);
 ```
+```
 false
 false
 false
 false
+```
 ```
 console.log(true == 1);  
 console.log(true === 1);  
 console.log(false == 0);  
 console.log(false === 0);
 ```
+```
 true
 false
 true
 false
+```
 ```
 console.log("" == false);  
 console.log("" === false);  
@@ -412,10 +435,12 @@ console.log("" == 0);
 console.log("" === 0);
 ```
 output:
+```
 true
 false
 true
 false
+```
 - In loose equality, "" is coerced to a boolean value and compared with false.Since an empty string is falsy, "" == false evaluates to true
 - In strict equality, "" (a string) and false (a boolean) have different types.Therefore, "" === false evaluates to false
 - In loose equality, the empty string "" is coerced to 0 before comparison."" == 0 evaluates to true.
@@ -428,10 +453,12 @@ console.log([1] == 1);
 console.log([1] === 1);
 ```
 output:
+```
 true
 falsw
 true
 false
+```
 - In loose equality, the empty array [] is coerced to a string, which is then converted to 0.[] converts to "", and "" == 0 evaluates to true.
 - In strict equality, there is no type conversion.Since [] is an array and 0 is a number, their types are different.
 - In loose equality, [1] is converted to a string ("1"), and then compared with the number 1."1" is coerced to the number 1 for comparison, so [1] == 1 evaluates to true.
@@ -442,10 +469,12 @@ console.log(undefined == false);
 console.log(undefined == true);  
 console.log(null === false);
 ```
+```
 false
 false
 true
 false
+```
 
 - In loose equality, null is only equal to false when specifically coerced in this comparison.In JavaScript, null is loosely equal to false.
 - In loose equality, undefined is not equal to false.
@@ -466,12 +495,14 @@ console.log("true" == true);
 console.log("false" == false);  
 ```
 output:
+```
 false
 false
 true
 true
 false
 false
+```
 -In loose equality, true is coerced to a string ("1").Then, it compares "1" == "true" which is not equal.
 -In loose equality, false is coerced to a string ("0").Comparing "0" with "false" results in false.
 -In loose equality, true is coerced to number 1.The comparison becomes 1 == "1" and is true.
@@ -486,10 +517,12 @@ console.log(0 == []);
 console.log("0" == []);  
 console.log([] == ![]);
 ```
+```
 true
 true
 true
 true
+```
 - The string "0" is coerced to a number (0).Therefore, 0 == "0" becomes 0 == 0, which evaluates to true
 - An empty array [] is coerced to a number and becomes 0.So, 0 == [] evaluates to 0 == 0, which is true.
 - The empty array [] is converted to a primitive value, which is 0.The comparison "0" == 0 is then 0 == 0, which evaluates to true.
@@ -508,10 +541,12 @@ console.log(null === undefined);
 console.log(null == 0);  
 console.log(undefined == 0);
 ```
+```
 true
 false
 true
 false
+```
 - In loose equality, null and undefined are considered equal.Therefore, this comparison evaluates to true.
 - In strict equality, null and undefined have different types.Since their types are different, this comparison evaluates to false.
 - In loose equality, null is coerced to 0.Therefore, the comparison null == 0 evaluates to true.
@@ -523,4 +558,15 @@ console.log(obj === 5);
 console.log(obj == "5");  
 console.log(obj === "5");
 ```
+output:
+```
+true
+false
+true
+false
+```
+- When using the == (equality) operator, JavaScript performs type coercion.The valueOf method of obj is called, which returns 5.Since 5 (from valueOf) and 5 (a number) are equal, the result is true.
+- The === (strict equality) operator does not perform type coercion.obj is an object, and 5 is a primitive number. Since their types are different, the result is false.
+- valueOf is called on obj, returning 5.The string "5" is then coerced into the number 5 for comparison.Since 5 == 5, the result is true.
+- The === operator checks for both value and type without coercion.obj is still an object, and "5" is a string. Since their types are different, the result is false.
 
