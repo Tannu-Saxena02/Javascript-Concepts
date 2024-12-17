@@ -337,5 +337,114 @@ What are the differences between typeof and instanceof?
 -The instanceof operator checks if an object is an instance of a specific constructor.Here, [] is an instance of Array, so the result is true.
 - Similarly, {} (an empty object) is an instance of Object.it return true
 - In JavaScript, undefined is a primitive value and represents the absence of a value or an uninitialized variable.The typeof operator returns "undefined" when used with undefined.
+```
+console.log(0 == false);  
+console.log(0 === false);  
+console.log("0" == false);  
+console.log("0" === false);
+```
+```
+true
+false
+true
+false
+```
+```
+console.log(null == undefined);  
+console.log(null === undefined);  
+console.log(null == 0);  
+console.log(null >= 0);
+```
+```
+true
+false
+true
+true
+```
+```
+console.log([] == []);  
+console.log([] === []);  
+console.log({} == {});  
+console.log({} === {});
 
+```
+```
+false
+false
+false
+false
+
+```
+console.log("5" == 5);  
+console.log("5" === 5);  
+console.log(5 == "5.0");  
+console.log(5 === "5.0");
+true
+false
+true
+false
+
+console.log(NaN == NaN);  
+console.log(NaN === NaN);  
+console.log(undefined == NaN);  
+console.log(undefined === NaN);
+false
+false
+false
+false
+
+console.log(true == 1);  
+console.log(true === 1);  
+console.log(false == 0);  
+console.log(false === 0);
+true
+false
+true
+false
+
+console.log("" == false);  
+console.log("" === false);  
+console.log("" == 0);  
+console.log("" === 0);
+
+console.log([] == 0);  
+console.log([] === 0);  
+console.log([1] == 1);  
+console.log([1] === 1);
+
+console.log(null == false);  
+console.log(undefined == false);  
+console.log(undefined == true);  
+console.log(null === false);
+
+console.log({} == "[object Object]");  
+console.log({} === "[object Object]");  
+console.log([1, 2] == "1,2");  
+console.log([1, 2] === "1,2");
+
+console.log(true == "true");  
+console.log(false == "false");  
+console.log(true == "1");  
+console.log(false == "");
+
+console.log(0 == "0");  
+console.log(0 == []);  
+console.log("0" == []);  
+console.log([] == ![]);
+
+console.log({} == "[object Object]");  
+console.log({} == {});  
+console.log({}.toString() == "[object Object]");  
+console.log({}.toString() === "[object Object]");
+
+console.log(null == undefined);  
+console.log(null === undefined);  
+console.log(null == 0);  
+console.log(undefined == 0);
+
+const obj = { valueOf: () => 5 };  
+console.log(obj == 5);  
+console.log(obj === 5);  
+console.log(obj == "5");  
+console.log(obj === "5");
 
