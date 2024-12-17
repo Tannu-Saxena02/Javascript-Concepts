@@ -150,7 +150,76 @@ var greet = function () {
 greet();
 ```
 Output?
+```
+Hello!
+Hi!
+```
+
 What happens to the function declaration when a variable with the same name is defined?
+function greet() { console.log("Hello!"); } is a function declaration.
+var greet = function () { console.log("Hi!"); } is a function expression assigned to the variable greet.
+
+In JavaScript, both function declarations and variable declarations are hoisted to the top of their scope. However:Function declarations are hoisted with their definition.Variable declarations using var are hoisted, but their initialization happens at runtime.
+Execution:
+The first greet() call happens before the var greet = function () {...} assignment. At this point:
+The greet variable has not yet overwritten the function declaration.The original function declaration (function greet() { console.log("Hello!"); }) is invoked.
+Output: Hello!
+After the var greet = function () { console.log("Hi!"); } line executes:
+
+The greet variable now refers to the function expression (function () { console.log("Hi!"); }).The second greet() call invokes this new function.
+Output: Hi!
+```
+// Hoisted function declaration
+function greet() {
+  console.log("Hello!");
+}
+
+// Hoisted variable declaration (initialization happens later)
+var greet;
+// The variable greet (from the var declaration) overwrites the function declaration,
+// but its value is undefined until it's assigned the function expression.
+greet();
+greet = function () {
+  console.log("Hi!");
+};
+greet();
+```
+```
+function greet() {  
+  console.log("Hello!");  
+}  
+
+var greet = function () {  
+  console.log("Hi!");  
+};  
+greet();  
+greet();
+output:
+Hi!
+Hi!
+```
+explanation:Hoisting:
+
+Function declarations (function greet() {...}) are hoisted with their definitions to the top of the scope.Variable declarations (var greet) are also hoisted, but only the declaration (not the initialization).
+If there is a conflict between a variable declaration and a function declaration, the variable declaration takes precedence during the hoisting phase.
+Execution Order:
+During the execution phase, the var greet initialization (greet = function () { ... }) overrides the function declaration.after hoisting code will like this:
+```
+// Hoisted function declaration (initially "greet" is a function)
+function greet() {  
+  console.log("Hello!");  
+}
+// Hoisted variable declaration (overrides the function declaration, but not yet initialized)
+var greet;
+// Now "greet" is undefined, but will soon be initialized with the function expression
+greet = function () {  
+  console.log("Hi!");  
+};
+// First call
+greet(); // Executes the function expression: Outputs "Hi!"
+// Second call
+greet(); // Executes the function expression: Outputs "Hi!"
+```
 
 6. this Keyword
 ```
@@ -455,7 +524,7 @@ console.log([1] === 1);
 output:
 ```
 true
-falsw
+false
 true
 false
 ```
@@ -486,6 +555,17 @@ console.log({} === "[object Object]");
 console.log([1, 2] == "1,2");  
 console.log([1, 2] === "1,2");
 ```
+```
+false
+false
+true
+true
+```
+-The == operator compares the object ({}) with the string ("[object Object]").JavaScript tries to coerce the object to a primitive for comparison. By default, objects call theirtoString method to convert to a string.{}.toString() produces "[object Object]", but the {} == "[object Object]" comparison does not invoke coercion as expected here because the left side ({}) is treated as a unique object reference.evaluates to false.
+- In JavaScript, each {} creates a new object reference.Objects are compared by reference, not by value. Since two different objects are never the same reference, the result is false.
+- Here, {} is explicitly invoking its toString method using .toString(), which returns "[object Object]".The == operator compares the resulting string with "[object Object]". Since they are the same value, the result is true.
+- This is the same comparison as above but with the === operator (strict equality).Both the values and types match (both are strings), so the result is true.
+
 ```
 console.log(true == "true");  
 console.log(false == "false");  
