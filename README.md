@@ -46,8 +46,16 @@ var a = 5;
 console.log(b);  
 let b = 10;
 ```
-Output? 
+Output?
+```
+undefined
+Uncaught ReferenceError: Cannot access 'b' before initialization
+```
 Explain the concept of hoisting with var, let, and const.
+Variables declared with var are hoisted to the top of their scope and initialized with undefined. This means the declaration of var a is moved to the top, but its assignment (a = 5) is not.
+Variables declared with let (and const) are also hoisted, but they are not initialized. They exist in a "temporal dead zone" (TDZ) from the start of the block until the declaration is encountered.Accessing b before its declaration and initialization results in a ReferenceError
+
+
 
 2. Closures
 ```
@@ -66,8 +74,18 @@ counter2();
 counter1();
 ```
 Output?
+```
+1
+2
+1
+3
+```
 Explain how closures work in JavaScript.
-
+This function creates a closure.
+Inside it, there is a variable count initialized to 0.The function returns an inner function that increments the count variable and logs its value.
+Because of closures, the inner function retains access to the count variable even after createCounter has finished executing
+it gives 1,on next call it gives 2 . on the third call,A new call to createCounter() creates a new closure with a separate count variable, initialized to 0. 
+The returned inner function is assigned to counter2
 3. Scoping
 ```
 function test() {  
@@ -81,8 +99,27 @@ function test() {
 test();
 ```
 Output?
+```
+2
+2
+```
+```
+2
+1
+```
 What would happen if var was replaced with let or const?
-
+for var:
+x is declared and initialized with the value 1.Inside if (true) Block: var x = 2;
+x is redeclared and reassigned to 2, but since var is function-scoped, it doesn't create a new variable. Instead, it overwrites the existing x in the function's scope.
+console.log(x); logs 2.
+Outside the if Block:
+After the if block, the value of x remains 2 because the var x inside the if block was the same x as in the function scope.
+console.log(x); logs 2.
+let:
+let x = 2; declares a new variable that is scoped to the if block. This is separate from the x declared in the outer function scope.
+console.log(x); logs 2, referring to the block-scoped x.After the if block, the block-scoped x goes out of scope.
+The outer x (declared in the function scope) remains unchanged with its original value of 1.
+console.log(x); logs 1.
 4. Event Loop
 ```
 console.log("Start");  
