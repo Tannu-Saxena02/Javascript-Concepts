@@ -625,6 +625,12 @@ console.log({}.toString() == "[object Object]");
 console.log({}.toString() === "[object Object]");
 ```
 ```
+false
+false
+true
+true
+```
+```
 console.log(null == undefined);  
 console.log(null === undefined);  
 console.log(null == 0);  
